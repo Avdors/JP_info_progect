@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.launch
 
 @Composable
@@ -15,6 +16,7 @@ fun MainTopBar(title: String, scaffoldState: ScaffoldState) {
         title = {
             Text(text = title)
         },
+        backgroundColor = Color.White,
         navigationIcon = {  // кнопка открытия дравер меню
            IconButton(onClick = {
                 corutine.launch {

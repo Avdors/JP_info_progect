@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
             //для открытия дравер меню
             val scaffoldState = rememberScaffoldState()
             val topBarTitle = remember {
-                mutableStateOf("Созвездия")
+                mutableStateOf("Aries")
             }
             JP_info_progectTheme {
                 Scaffold(scaffoldState = scaffoldState,
