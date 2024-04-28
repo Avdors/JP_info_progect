@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.jp_info_progect.ui.theme.JP_info_progectTheme
+import com.example.jp_info_progect.ui_components.DrawerMenu
 import com.example.jp_info_progect.ui_components.MainTopBar
 
 class MainActivity : ComponentActivity() {
@@ -29,7 +30,11 @@ class MainActivity : ComponentActivity() {
                 topBar = {
                     MainTopBar(title = topBarTitle.value,
                     scaffoldState)
-                }) {
+                },
+                drawerContent = {
+                    DrawerMenu() // здесь мы добавляем наше созданное меню
+                }
+                    ) {
 
 
                 }

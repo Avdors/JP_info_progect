@@ -25,6 +25,20 @@ import com.example.jp_info_progect.R
 
 @Composable
 fun DrawerMenu() {
+    
+    // используем Box чтобы все объекты внутри разместить фоновую картинку, header and body
+    Box(modifier = Modifier.fillMaxSize()){
+        Image(painter = painterResource(id = R.drawable.drawer_bg),
+            contentDescription = "Menu background",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+            )
+        // column чтобы остальные элементы легли поверх картинки основной
+        Column(modifier = Modifier.fillMaxSize()) {
+                Header()
+                Body()
+        }
+    }
 }
 
 @Composable
@@ -70,7 +84,8 @@ fun Body(){
     // для создания списка
     LazyColumn(modifier = Modifier.fillMaxSize()){
         itemsIndexed(list){ index, title ->
-            Card(modifier = Modifier.fillMaxWidth()
+            Card(modifier = Modifier
+                .fillMaxWidth()
                 .padding(3.dp),
                 backgroundColor = Color.Transparent
             ) {
