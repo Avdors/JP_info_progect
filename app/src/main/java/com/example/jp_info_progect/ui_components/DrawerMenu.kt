@@ -67,7 +67,7 @@ fun Header() {
                 )
                 Text(text = "Constellations",
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
                     .background(Color.Black)
                     .padding(10.dp),
                     textAlign = TextAlign.Center,
