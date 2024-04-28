@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.jp_info_progect.R
+import com.example.jp_info_progect.ui.theme.Bg_transparent
 
 
 @Composable
@@ -87,7 +88,7 @@ fun Body(){
             Card(modifier = Modifier
                 .fillMaxWidth()
                 .padding(3.dp),
-                backgroundColor = Color.Transparent
+                backgroundColor = Bg_transparent
             ) {
                 Text(text = title,
                     modifier = Modifier
