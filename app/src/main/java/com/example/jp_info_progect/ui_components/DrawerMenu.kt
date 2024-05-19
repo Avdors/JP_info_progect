@@ -22,10 +22,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.jp_info_progect.R
 import com.example.jp_info_progect.ui.theme.Bg_transparent
+import com.example.jp_info_progect.utils.DrawerEvents
 
-
+// и используем sealed класс, мы тогда мыожем передавать в это событие любой дата класс
+// который есть в DrawerEvents
+// -> Unit - это говорит о том что это функция ничего не возвращает
 @Composable
-fun DrawerMenu() {
+fun DrawerMenu(onEvent: (DrawerEvents)-> Unit) {
     
     // используем Box чтобы все объекты внутри разместить фоновую картинку, header and body
     Box(modifier = Modifier.fillMaxSize()){
@@ -37,14 +40,19 @@ fun DrawerMenu() {
         // column чтобы остальные элементы легли поверх картинки основной
         Column(modifier = Modifier.fillMaxSize()) {
                 Header()
-                Body()
+            // и событие нужно прописать еще здесь
+                Body(){event ->
+                    // и вот здесь мы передаем снова данные пробрасываем событие далее, чтобы в майн активити их увидеть
+                    onEvent(event)
+
+                }
         }
     }
 }
 
 @Composable
 fun Header() {
-    // modifier = Modifier.fillMaxWidth() - начит что займет всю ширину элемента
+    // modifier = Modifier.fillMaxWidth() - значит что займет всю ширину элемента
     // shape - здесь реализуем закругление углов
     // border - рамка вокруг элемента
     // contentScale - здесь можем указать то что нужно подогнать картинку к элементу (Crop сохранит пропорции но заполнит все пространство)
@@ -78,9 +86,9 @@ fun Header() {
         }
     }
 }
-
+// вот здесь при нажатии на кнопку у нас есть слушатель нажатий это часть логики с DrawerEvents
 @Composable
-fun Body(){
+fun Body(onEvent: (DrawerEvents)-> Unit){
     val list = stringArrayResource(id = R.array.drawer_list)
     // для создания списка
     LazyColumn(modifier = Modifier.fillMaxSize()){
@@ -94,7 +102,8 @@ fun Body(){
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable { // это слушатель нажатий
-
+                            // здесь мы передаем индекс и наименование в состояние
+                            onEvent(DrawerEvents.OnItemClick(title, index))
                         }
                         .padding(10.dp)
                         .wrapContentWidth(), // ставит текст по центру
