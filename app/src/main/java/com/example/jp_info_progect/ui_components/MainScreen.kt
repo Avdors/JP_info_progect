@@ -14,11 +14,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import com.example.jp_info_progect.repository.ItemRepository
 import com.example.jp_info_progect.utils.DrawerEvents
+import com.example.jp_info_progect.utils.ListItem
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainScreen(context: Context) {
+// и здесь прокидываем эту функцию onClick: (ListItem)->Unit, чтобы нам добраться до MainActivity
+fun MainScreen(context: Context, onClick: (ListItem)->Unit) {
     //для открытия дравер меню
     val scaffoldState = rememberScaffoldState()
     //создаем эту корутину для того чтобы закрывать панель дравер меню
@@ -62,7 +64,12 @@ fun MainScreen(context: Context) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             // сюда нужно передать список
             items(mainList.value){ item ->
-                MainListItem(item = item)
+                // обавляем здесь обработку нажатия по item
+                MainListItem(item = item){ listItem ->
+
+                    //снова вызываем функцию что в параметрах
+                    onClick(listItem)
+                }
             }
         }
     }

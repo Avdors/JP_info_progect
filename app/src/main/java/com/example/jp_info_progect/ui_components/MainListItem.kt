@@ -5,6 +5,7 @@ import android.media.audiofx.AudioEffect.Descriptor
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,12 +30,16 @@ import com.example.jp_info_progect.utils.ListItem
 
 // здесь макет единицы списка каталога, когда выбираем какой то знак открывается каталог
 @Composable
-fun MainListItem(item: ListItem) { // передаем сюда элемент того списка ListItem
+fun MainListItem(item: ListItem, onClick: (ListItem)->Unit) { // передаем сюда элемент того списка ListItem
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(170.dp)
-            .padding(5.dp),
+            .padding(5.dp)
+            .clickable { // здесь мы слушаем нажатие чтобы открыть INFO_SCREEN
+            //выше в параметры функции мы добавим функцию onClick:
+                onClick(item)
+            },
         shape = RoundedCornerShape(10.dp),
         border = BorderStroke(1.dp, Color.Black)
     ) {
