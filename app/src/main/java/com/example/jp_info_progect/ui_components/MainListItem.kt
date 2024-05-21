@@ -48,7 +48,8 @@ fun MainListItem(item: ListItem, onClick: (ListItem)->Unit) { // передае�
             contentAlignment = Alignment.BottomCenter
         ){
             AssetImage(imageName = item.imageName,
-                contentDescriptor = item.title)
+                contentDescriptor = item.title,
+                Modifier.fillMaxSize())
             Text(text = item.title, //  здесь мы тогда пишем заголовок из Item
                 modifier = Modifier
                     .fillMaxWidth()
@@ -63,8 +64,9 @@ fun MainListItem(item: ListItem, onClick: (ListItem)->Unit) { // передае�
 }
 
 // создаем свою функцию для обработки картинки
+// и так же будем сюда передавать модифаер, чтобы можно было её переиспользовать
 @Composable
-fun AssetImage(imageName: String, contentDescriptor: String){
+fun AssetImage(imageName: String, contentDescriptor: String, modifier: Modifier){
 
     // нам нужен контекст чтобы обратится к папке assets
     val context = LocalContext.current
@@ -73,7 +75,7 @@ fun AssetImage(imageName: String, contentDescriptor: String){
     val bitMap = BitmapFactory.decodeStream(inputStream)  // декодирует данные из asset, чтобы получить картинку
     Image(bitmap = bitMap.asImageBitmap(),
         contentDescription = "Header image",
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier,
         contentScale = ContentScale.Crop,
         
     )
