@@ -1,5 +1,7 @@
 package com.example.jp_info_progect.ui_components
 
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,7 +11,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.example.jp_info_progect.utils.ListItem
 
 
@@ -31,7 +35,8 @@ fun InfoScreen(item: ListItem) {
             AssetImage(
                 imageName = item.imageName,
                 contentDescriptor = item.title,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .height(200.dp)
             )
             // здесь мы будем получать xml из assets и выводить его то есть выводить view
@@ -41,8 +46,22 @@ fun InfoScreen(item: ListItem) {
     }
 }
 
-
+// в этой функции будем получать нужный файл из папки ассетс
 @Composable
 fun HtmlLoader(htmlName: String){
+    // нам нужен контекст чтобы обратится к папке assets
+    val context = LocalContext.current
+    val assetManager = context.assets
+    val inputStream = assetManager.open(htmlName)
+    // нам нужно узнать размер инпутстрима
+    val size = inputStream.available()
+    val buffer = ByteArray(size)
+    // читаем в массив буфер файл
+    inputStream.read(buffer)
+    AndroidView(factory = {
+        WebView(it).apply {
+            webViewClient = WebViewClient()
+        } //factory дает нам контекст it
+    })
 
 }
