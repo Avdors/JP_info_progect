@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.jp_info_progect.ui.theme.JP_info_progectTheme
+import com.example.jp_info_progect.ui_components.InfoScreen
 import com.example.jp_info_progect.ui_components.MainScreen
 import com.example.jp_info_progect.utils.Constant
 import com.example.jp_info_progect.utils.ListItem
@@ -37,7 +38,7 @@ class MainActivity : ComponentActivity() {
                         //MainListItem и в нём добавляем слушатель нажатий
                     }
                     composable(Constant.INFO_SCREEN){
-
+                        InfoScreen(item = item as ListItem)
                     }
                 }
 
