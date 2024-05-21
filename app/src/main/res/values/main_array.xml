@@ -18,51 +18,51 @@
 
 
     <string-array name="aries">
-    <item>Умный|lodka.png</item>
-    <item>Добрый|most.png</item>
+    <item>Умный|lodka.png|primerhtml.html</item>
+    <item>Добрый|most.png|primerhtml.html</item>
     </string-array>
     <string-array name="taurus">
-        <item>Веселы|lodka.png</item>
-        <item>Добрый|most.png</item>
+        <item>Веселы|lodka.png|primerhtml.html</item>
+        <item>Добрый|most.png|primerhtml.html</item>
     </string-array>
     <string-array name="gemini">
-        <item>Умный|lodka.png</item>
-        <item>Добрый|most.png</item>
+        <item>Умный|lodka.png|primerhtml.html</item>
+        <item>Добрый|most.png|primerhtml.html</item>
     </string-array>
     <string-array name="cancer">
-        <item>Умный|lodka.png</item>
-        <item>Злой|most.png</item>
+        <item>Умный|lodka.png|primerhtml.html</item>
+        <item>Злой|most.png|primerhtml.html</item>
     </string-array>
     <string-array name="leo">
-        <item>Остроумный|lodka.png</item>
-        <item>Добрый|most.png</item>
+        <item>Остроумный|lodka.png|primerhtml.html</item>
+        <item>Добрый|most.png|primerhtml.html</item>
     </string-array>
     <string-array name="virgo">
-        <item>Глыпый|lodka.png</item>
-        <item>Злой|most.png</item>
+        <item>Глыпый|lodka.png|primerhtml.html</item>
+        <item>Злой|most.png|primerhtml.html</item>
     </string-array>
     <string-array name="libra">
-        <item>Умный|lodka.png</item>
-        <item>Жадный|most.png</item>
+        <item>Умный|lodka.png|primerhtml.html</item>
+        <item>Жадный|most.png|primerhtml.html</item>
     </string-array>
     <string-array name="scorpio">
-        <item>Умный|lodka.png</item>
-        <item>Добрый|most.png</item>
+        <item>Умный|lodka.png|primerhtml.html</item>
+        <item>Добрый|most.png|primerhtml.html</item>
     </string-array>
     <string-array name="sagittarius">
-        <item>Веселый|lodka.png</item>
-        <item>Глупый|most.png</item>
+        <item>Веселый|lodka.png|primerhtml.html</item>
+        <item>Глупый|most.png|primerhtml.html</item>
     </string-array>
     <string-array name="capicorn">
-        <item>Смелый|lodka.png</item>
-        <item>Добрый|most.png</item>
+        <item>Смелый|lodka.png|primerhtml.html</item>
+        <item>Добрый|most.png|primerhtml.html</item>
     </string-array>
     <string-array name="aquarius">
-        <item>Ловкий|lodka.png</item>
-        <item>Добрый|most.png</item>
+        <item>Ловкий|lodka.png|primerhtml.html</item>
+        <item>Добрый|most.png|primerhtml.html</item>
     </string-array>
     <string-array name="pisces">
-        <item>Скучный|lodka.png</item>
-        <item>Добрый|most.png</item>
+        <item>Скучный|lodka.png|primerhtml.html</item>
+        <item>Добрый|most.png|primerhtml.html</item>
     </string-array>
 </resources>

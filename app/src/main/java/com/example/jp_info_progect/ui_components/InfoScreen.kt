@@ -40,7 +40,8 @@ fun InfoScreen(item: ListItem) {
                     .height(200.dp)
             )
             // здесь мы будем получать xml из assets и выводить его то есть выводить view
-
+            // и для этого в ListItem мы еще добавим htmlName
+            HtmlLoader(htmlName = item.htmlName)
         }
 
     }
@@ -52,15 +53,18 @@ fun HtmlLoader(htmlName: String){
     // нам нужен контекст чтобы обратится к папке assets
     val context = LocalContext.current
     val assetManager = context.assets
-    val inputStream = assetManager.open(htmlName)
+    val inputStream = assetManager.open("html/$htmlName")
     // нам нужно узнать размер инпутстрима
     val size = inputStream.available()
     val buffer = ByteArray(size)
     // читаем в массив буфер файл
     inputStream.read(buffer)
+
+    val htmlString = String(buffer)
     AndroidView(factory = {
         WebView(it).apply {
             webViewClient = WebViewClient()
+            loadData(htmlString, "text/html", "utf-8")
         } //factory дает нам контекст it
     })
 
