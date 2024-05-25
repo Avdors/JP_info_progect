@@ -12,6 +12,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.jp_info_progect.MainViewModel
 import com.example.jp_info_progect.repository.ItemRepository
 import com.example.jp_info_progect.utils.DrawerEvents
 import com.example.jp_info_progect.utils.ListItem
@@ -21,21 +23,31 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 // и здесь прокидываем эту функцию onClick: (ListItem)->Unit, чтобы нам добраться до MainActivity
-fun MainScreen(context: Context, onClick: (ListItem)->Unit) {
+//fun MainScreen(context: Context, onClick: (ListItem)->Unit) {
+fun MainScreen(
+    mainViewModel: MainViewModel = hiltViewModel(), // здесь хилт знает как создать конструктор вьюмодел, там мы бд инициализируем
+    onClick: (ListItem)->Unit
+) {
     //для открытия дравер меню
     val scaffoldState = rememberScaffoldState()
     //создаем эту корутину для того чтобы закрывать панель дравер меню
     val corutineScope = rememberCoroutineScope()
     // вот это для списка основного каталога
     val repository = ItemRepository()
-    // это как раз в тот список, в который через Репозиторий, мы грузим список
-    val mainList = remember {
-        mutableStateOf(repository.getListItemsByIndex(0, context))
-    }
+    // это как раз в тот список, в который через Репозиторий, мы грузим список, это вариант без рум
+//    val mainList = remember {
+//        mutableStateOf(repository.getListItemsByIndex(0, context))
+//    }
     //
+
+    //а вот здесь добавили рум
+    val mainList = mainViewModel.mainList
+
     val topBarTitle = remember {
         mutableStateOf("Aries")
     }
+// чтобы список не был пустым передадим в него заголовок который по умолчанию при открытии
+    mainViewModel.gettAllitemByCategory(topBarTitle.value)
     Scaffold(scaffoldState = scaffoldState,
         topBar = {
             MainTopBar(title = topBarTitle.value,
@@ -51,7 +63,8 @@ fun MainScreen(context: Context, onClick: (ListItem)->Unit) {
                     is DrawerEvents.OnItemClick -> {
                         topBarTitle.value = event.title
                         // так как мы внутри ColumnScope то к контексту вот так обращаемся
-                        mainList.value = repository.getListItemsByIndex(event.index, context)
+                        //mainList.value = repository.getListItemsByIndex(event.index, context)
+                        mainViewModel.gettAllitemByCategory(event.title)
                     }
                 }
                 // запускаем корутину, чтобы внутри нее

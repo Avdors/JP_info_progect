@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
                 // переключаем экраны внутри новхост, передаем в него контроллер и экран по умолчанию - startDestination
                 NavHost(navController = navController, startDestination = Constant.MAIN_SCREEN ){
                     composable(Constant.MAIN_SCREEN){
-                        MainScreen(context = this@MainActivity){listItem -> // вот здесь мы получаем тот листайтем
+                        MainScreen{listItem -> // вот здесь мы получаем тот листайтем
                             //сохраняем item нажатый в переменную
                             item = listItem
                             // и наконец мы запускаем ИНФО СКРИН
