@@ -17,6 +17,7 @@ import com.example.jp_info_progect.utils.DrawerEvents
 import com.example.jp_info_progect.utils.ListItem
 import kotlinx.coroutines.launch
 
+
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 // и здесь прокидываем эту функцию onClick: (ListItem)->Unit, чтобы нам добраться до MainActivity

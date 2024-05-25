@@ -12,8 +12,11 @@ import com.example.jp_info_progect.ui_components.InfoScreen
 import com.example.jp_info_progect.ui_components.MainScreen
 import com.example.jp_info_progect.utils.Constant
 import com.example.jp_info_progect.utils.ListItem
+import dagger.hilt.android.AndroidEntryPoint
 
 // ctrl + ait + o убрать импорт
+//так как в этом классе мы используем зависимости то ставим @AndroidEntryPoint
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
