@@ -9,4 +9,6 @@ import com.example.jp_info_progect.utils.ListItem
     version = 1
 )
 abstract class MainDb: RoomDatabase() {
+    // здесь прописываем Дао чтобы иметь к нему доступ
+    abstract val dao: Dao
 }
