@@ -13,13 +13,13 @@ class ItemRepository() {
         val arrayList = context.resources.getStringArray(IdArrayList.listId[index])
         arrayList.forEach { item ->
             val itemArray = item.split("|")
-            list.add(
-                ListItem(
-                    itemArray[0],
-                    itemArray[1],
-                    itemArray[2]
-                )
-            )
+//            list.add(
+//                ListItem(
+//                    itemArray[0],
+//                    itemArray[1],
+//                    itemArray[2]
+//                )
+//            )
         }
         return list
     }
