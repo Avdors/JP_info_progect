@@ -13,7 +13,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,6 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.jp_info_progect.R
 import com.example.jp_info_progect.utils.ListItem
 
@@ -37,29 +42,79 @@ fun MainListItem(item: ListItem, onClick: (ListItem)->Unit) { // передае�
             .height(170.dp)
             .padding(5.dp)
             .clickable { // здесь мы слушаем нажатие чтобы открыть INFO_SCREEN
-            //выше в параметры функции мы добавим функцию onClick:
+                //выше в параметры функции мы добавим функцию onClick:
                 onClick(item)
             },
         shape = RoundedCornerShape(10.dp),
         border = BorderStroke(1.dp, Color.Black)
     ) {
         // контейнер Box чтобы мы могли расположить картинку и текст внизу
-        Box(modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.BottomCenter
+//        Box(modifier = Modifier.fillMaxSize(),
+//            contentAlignment = Alignment.BottomCenter
+//        ){
+//            AssetImage(imageName = item.imageName,
+//                contentDescriptor = item.title,
+//                Modifier.fillMaxSize())
+//            Text(text = item.title, //  здесь мы тогда пишем заголовок из Item
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .background(Color.Black)
+//                    .padding(10.dp),
+//                textAlign = TextAlign.Center,
+//                fontWeight = FontWeight.Bold,
+//                color = Color.White
+//            )
+//        }
+
+        // заменяю на констрейнт, прописал под него зависимость в градле
+                ConstraintLayout(modifier = Modifier.fillMaxSize(),
+
         ){
+        // нам нужно придумать название для трех элементов,
+        val (image, text, favoriteButton) = createRefs()
+
             AssetImage(imageName = item.imageName,
                 contentDescriptor = item.title,
-                Modifier.fillMaxSize())
+                modifier = Modifier
+                    .fillMaxSize()
+                    .constrainAs(image) {
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    } //здесь даем название для констрейнта и все привязки
+            )
+
+
             Text(text = item.title, //  здесь мы тогда пишем заголовок из Item
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Color.Black)
-                    .padding(10.dp),
+                    .padding(10.dp)
+                    .constrainAs(text) {
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    },
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
+                    
+                    IconButton(onClick = { 
+                        
+                    },
+                        modifier = Modifier
+                            .constrainAs(favoriteButton){
+                                end.linkTo(parent.end)
+                                top.linkTo(parent.top)
+                        }) {
+                        Icon(imageVector = Icons.Default.Favorite,
+                            contentDescription = "Favorite")
+                        
+                    }
         }
+
     }
 }
 
