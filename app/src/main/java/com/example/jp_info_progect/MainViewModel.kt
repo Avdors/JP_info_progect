@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.jp_info_progect.db.MainDb
 import com.example.jp_info_progect.utils.ListItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,8 +19,26 @@ class MainViewModel @Inject constructor(
 ): ViewModel() {
 
     val mainList = mutableStateOf(emptyList<ListItem>())
-    fun gettAllitemByCategory(cat: String) = viewModelScope.launch {
-        mainList.value = mainDb.dao.getAllItemsByCategory(cat)
+    // для того чтобы прослушивать и отменять подписку на Flow
+    var job: Job? = null
+    fun gettAllitemByCategory(cat: String) {
+        job?.cancel() //если job не null то завершаем его перед использованием
+        job = viewModelScope.launch {
+            // здесь переделываем под получение flow и мы подписываемся только либо на job c основными элементами, либо с избранным
+            mainDb.dao.getAllItemsByCategory(cat).collect{list->
+                mainList.value = list
+
+            }
+        }
+    }
+    fun gettFavorites(){
+        job?.cancel() //если job не null то завершаем его перед использованием
+        job = viewModelScope.launch {
+            // здесь переделываем под получение flow
+            mainDb.dao.getFavorites().collect{list->
+                mainList.value = list
+            }
+        }
     }
     fun insertItem(item: ListItem) = viewModelScope.launch {
         mainDb.dao.insertItem(item)
