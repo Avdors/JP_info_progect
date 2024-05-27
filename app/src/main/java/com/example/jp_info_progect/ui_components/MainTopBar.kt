@@ -13,9 +13,10 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun MainTopBar(
-    mainViewModel: MainViewModel = hiltViewModel(), // для того чтобы обработать клик по избраному
     title: String,
-    scaffoldState: ScaffoldState) {
+    scaffoldState: ScaffoldState,
+    mainViewModel: MainViewModel = hiltViewModel() // для того чтобы обработать клик по избраному
+     ) {
 //меню мы можем открыть только черз корутину
     val corutine = rememberCoroutineScope()
     TopAppBar (
@@ -39,6 +40,7 @@ fun MainTopBar(
 //                corutine.launch {
 //                    scaffoldState.drawerState.open()
 //                }
+                mainViewModel.gettFavorites()
             }) {
                 Icon(imageVector = Icons.Default.Favorite,
                     contentDescription = "Favorite"
