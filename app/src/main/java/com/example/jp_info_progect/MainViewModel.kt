@@ -20,7 +20,7 @@ class MainViewModel @Inject constructor(
 
     val mainList = mutableStateOf(emptyList<ListItem>())
     // для того чтобы прослушивать и отменять подписку на Flow
-    var job: Job? = null
+    private var job: Job? = null
     fun gettAllitemByCategory(cat: String) {
         job?.cancel() //если job не null то завершаем его перед использованием
         job = viewModelScope.launch {

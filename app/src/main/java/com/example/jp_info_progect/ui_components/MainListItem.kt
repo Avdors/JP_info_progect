@@ -32,13 +32,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.jp_info_progect.MainViewModel
 import com.example.jp_info_progect.R
 import com.example.jp_info_progect.ui.theme.Bg_transparent2
+import com.example.jp_info_progect.ui.theme.Grey
+import com.example.jp_info_progect.ui.theme.MainRed
 import com.example.jp_info_progect.utils.ListItem
 
 // здесь макет единицы списка каталога, когда выбираем какой то знак открывается каталог
 @Composable
-fun MainListItem(item: ListItem, onClick: (ListItem)->Unit) { // передаем сюда элемент того списка ListItem
+fun MainListItem(
+    mainViewModel: MainViewModel = hiltViewModel(),
+    item: ListItem,
+    onClick: (ListItem) -> Unit
+) { // передаем сюда элемент того списка ListItem
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -70,11 +78,13 @@ fun MainListItem(item: ListItem, onClick: (ListItem)->Unit) { // передае�
 //        }
 
         // заменяю на констрейнт, прописал под него зависимость в градле
-                ConstraintLayout(modifier = Modifier.fillMaxSize(),
+        ConstraintLayout(
+            modifier = Modifier.fillMaxSize(),
 
-        ){
-        // нам нужно придумать название для трех элементов,
-        val (image, text, favoriteButton) = createRefs()
+            ) {
+            // нам нужно придумать название для трех элементов,
+            // ctrl + alt + l отформатировать код
+            val (image, text, favoriteButton) = createRefs()
 
             AssetImage(imageName = item.imageName,
                 contentDescriptor = item.title,
@@ -89,7 +99,8 @@ fun MainListItem(item: ListItem, onClick: (ListItem)->Unit) { // передае�
             )
 
 
-            Text(text = item.title, //  здесь мы тогда пишем заголовок из Item
+            Text(
+                text = item.title, //  здесь мы тогда пишем заголовок из Item
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Color.Black)
@@ -103,23 +114,30 @@ fun MainListItem(item: ListItem, onClick: (ListItem)->Unit) { // передае�
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
-                    
-                    IconButton(onClick = { 
-                        
-                    },
-                        modifier = Modifier
-                            .constrainAs(favoriteButton){
-                                end.linkTo(parent.end)
-                                top.linkTo(parent.top)
-                        }) {
-                        Icon(imageVector = Icons.Default.Favorite,
-                            contentDescription = "Favorite",
-                            modifier = Modifier
-                                .clip(CircleShape)
-                                .background(Bg_transparent2)
-                                .padding(5.dp))
-                        
-                    }
+
+            IconButton(onClick = {
+
+                mainViewModel.insertItem(
+                    item.copy(isFavorit = !item.isFavorit) // тут вроде бы сохраняем противоположное значение от текущего
+                )
+
+            },
+                modifier = Modifier
+                    .constrainAs(favoriteButton) {
+                        end.linkTo(parent.end)
+                        top.linkTo(parent.top)
+                    }) {
+                Icon(
+                    imageVector = Icons.Default.Favorite,
+                    contentDescription = "Favorite",
+                    tint = if(item.isFavorit) MainRed else Grey, //здесь для избранных сердец окрашиваем их в красный
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .background(Bg_transparent2)
+                        .padding(5.dp)
+                )
+
+            }
         }
 
     }
@@ -128,17 +146,19 @@ fun MainListItem(item: ListItem, onClick: (ListItem)->Unit) { // передае�
 // создаем свою функцию для обработки картинки
 // и так же будем сюда передавать модифаер, чтобы можно было её переиспользовать
 @Composable
-fun AssetImage(imageName: String, contentDescriptor: String, modifier: Modifier){
+fun AssetImage(imageName: String, contentDescriptor: String, modifier: Modifier) {
 
     // нам нужен контекст чтобы обратится к папке assets
     val context = LocalContext.current
     val assetManager = context.assets
     val inputStream = assetManager.open(imageName)
-    val bitMap = BitmapFactory.decodeStream(inputStream)  // декодирует данные из asset, чтобы получить картинку
-    Image(bitmap = bitMap.asImageBitmap(),
+    val bitMap =
+        BitmapFactory.decodeStream(inputStream)  // декодирует данные из asset, чтобы получить картинку
+    Image(
+        bitmap = bitMap.asImageBitmap(),
         contentDescription = "Header image",
         modifier = modifier,
         contentScale = ContentScale.Crop,
-        
-    )
+
+        )
 }
