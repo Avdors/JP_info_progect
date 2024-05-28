@@ -51,7 +51,9 @@ fun MainScreen(
     Scaffold(scaffoldState = scaffoldState,
         topBar = {
             MainTopBar(title = topBarTitle.value,
-                scaffoldState)
+                scaffoldState){ // это здесь мы обрабатываем onFavClick из MainTopBar
+                topBarTitle.value = "Избранные"
+            }
         },
         drawerContent = {
             // и здесь мы реализуем передачу этого события, то что начали в DrawerEvents

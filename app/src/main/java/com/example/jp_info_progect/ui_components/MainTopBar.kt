@@ -15,7 +15,8 @@ import kotlinx.coroutines.launch
 fun MainTopBar(
     title: String,
     scaffoldState: ScaffoldState,
-    mainViewModel: MainViewModel = hiltViewModel() // для того чтобы обработать клик по избраному
+    mainViewModel: MainViewModel = hiltViewModel(), // для того чтобы обработать клик по избраному
+    onFavClick: ()-> Unit // чтобы при нажатии в MainScreen эту функцию дергать и менять заголовок и еще её вызвать ниже здесь в процедуре нажатия IconButton(onClick
      ) {
 //меню мы можем открыть только черз корутину
     val corutine = rememberCoroutineScope()
@@ -41,6 +42,7 @@ fun MainTopBar(
 //                    scaffoldState.drawerState.open()
 //                }
                 mainViewModel.gettFavorites()
+                onFavClick()
             }) {
                 Icon(imageVector = Icons.Default.Favorite,
                     contentDescription = "Favorite"
