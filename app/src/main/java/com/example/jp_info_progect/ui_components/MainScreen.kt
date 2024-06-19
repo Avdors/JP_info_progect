@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -47,12 +48,19 @@ fun MainScreen(
         mutableStateOf("Aries")
     }
 // чтобы список не был пустым передадим в него заголовок который по умолчанию при открытии
-    mainViewModel.gettAllitemByCategory(topBarTitle.value)
+
+    //mainViewModel.gettAllitemByCategory(topBarTitle.value)
+
+    // это выше заменяем на
+    LaunchedEffect(Unit) {
+        mainViewModel.gettAllitemByCategory(topBarTitle.value)
+    }
     Scaffold(scaffoldState = scaffoldState,
         topBar = {
             MainTopBar(title = topBarTitle.value,
                 scaffoldState){ // это здесь мы обрабатываем onFavClick из MainTopBar
                 topBarTitle.value = "Избранные"
+                mainViewModel.gettFavorites()
             }
         },
         drawerContent = {
