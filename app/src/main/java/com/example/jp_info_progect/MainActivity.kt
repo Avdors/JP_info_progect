@@ -23,6 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             // создадим здесь контроллер для переключения экранов
             val navController = rememberNavController()
+            val test = 21
             // заводим этот item чтобы в него складывать значение выбранного в Main Sreen itema
             var item: ListItem? = null
             JP_info_progectTheme {
