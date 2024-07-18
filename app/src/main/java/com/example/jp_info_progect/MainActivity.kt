@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            // создадим здесь контроллер для переключения экранов
+            // task1
             val navController = rememberNavController()
             // заводим этот item чтобы в него складывать значение выбранного в Main Sreen itema
             var item: ListItem? = null
