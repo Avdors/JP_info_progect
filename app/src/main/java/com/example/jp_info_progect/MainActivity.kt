@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             // task1
             val navController = rememberNavController()
-
+            // task3/1
             val test = 13
             // заводим этот item чтобы в него складывать значение выбранного в Main Sreen itema
             var item: ListItem? = null
