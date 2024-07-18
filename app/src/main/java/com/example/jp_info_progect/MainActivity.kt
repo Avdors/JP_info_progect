@@ -24,6 +24,7 @@ class MainActivity : ComponentActivity() {
             // task1
             val navController = rememberNavController()
             val test = 13
+            // comment
             // заводим этот item чтобы в него складывать значение выбранного в Main Sreen itema
             var item: ListItem? = null
             JP_info_progectTheme {
